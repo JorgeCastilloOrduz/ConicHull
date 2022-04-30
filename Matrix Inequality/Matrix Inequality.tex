@@ -1,0 +1,99 @@
+
+\documentclass[12pt, oneside]{article}%Tipo de documento y tamaño de letra%
+\usepackage[spanish]{layout}
+%\usepackage{hyperref}
+\usepackage{color,graphicx}%Para poder incertar graficas%
+\usepackage{graphics}
+\usepackage{amsmath,amssymb}%Insertar unos simbolos matematicos especiales%
+\usepackage{setspace}
+%\usepackage{empheq}
+%\usepackage{multicol}
+\onehalfspacing
+%\usepackage[mathscr]{euscript}%Tipo especial de letra%
+\usepackage[utf8]{inputenc}%Para las tildes
+\usepackage[spanish,activeacute]{babel} %Todo en Español
+%\usepackage{multicol}
+\pagestyle{empty}
+%\usepackage{spalign}  %SISTEMAS DE ECUACIONES%
+%\usepackage{array}
+\usepackage{layout}
+\usepackage{bm}
+\usepackage{manfnt}
+\usepackage{float}
+\usepackage{enumitem}
+%\usepackage{mma} 
+\usepackage{xcolor}
+\usepackage{mdframed}
+
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks=true,
+    linkcolor=red}
+\def\Car{{\textsf{Car}}}
+\def\Ring{{\mathcal R}}
+
+\def\N{{\mathbb N}}
+\def\Z{{\mathbb Z}}
+\def\R{{\mathbb R}}
+\newtheorem{teorema}{Teorema}
+\def\F{{\mathbb F}}
+\def\multiset#1#2{\ensuremath{\left(\kern-.3em\left(\genfrac{}{}{0pt}{}{#1}{#2}\right)\kern-.3em\right)}}
+\usepackage{picinpar}
+\setlength{\oddsidemargin}{0pt}
+\setlength{\topmargin}{0pt}
+\setlength{\headheight}{0pt}
+\setlength{\headsep}{0pt}
+\setlength{\textheight}{24cm}
+\setlength{\textwidth}{16.5cm}
+\setlength{\marginparsep}{0pt}
+\setlength{\marginparwidth}{0pt}
+\setlength{\footskip}{1cm}
+
+% \newenvironment{theorem}
+%   {\begin{mdframed}[backgroundcolor=lightgray]
+%   \begin{mdtheorem}}
+%   {\end{mdtheorem}
+% \end{mdframed}}
+
+
+\begin{document}
+\setlength{\parindent}{0cm}%EL ANCHO DE LA SANGRIA DE AQUÍ EN ADELANTE%
+\hoffset-0.46cm
+\voffset-1.46cm
+
+\begin{window}[0,l,{\includegraphics[scale=0.4]{Logo UN.jpg}},]
+\Large  \hspace{0.6cm}\textsf{National University of Colombia} \\
+\textcolor{white}{\tiny.}  \Large \hspace{0.6cm} \textsf{Department of Mathematics} \\
+\textcolor{white}{\tiny.}   \large\hspace{5.5cm}\textsf{Introduction to Optimization}\\
+\textcolor{white}{\tiny.}   \large \hspace{6.05cm}\textsf{Linear Matrix Inequality} 
+\end{window}
+
+
+\vspace{0.5cm}
+\normalfont
+\textsf{Jorge Luis Castillo Orduz} 
+\normalsize
+\dotfill
+\vspace{1cm}
+
+Show that the solution set of a linear matrix inequality is convex.\\
+
+\Large\textsf{\textcolor{blue}{Solution}}
+\normalsize\\
+
+Given a linear matrix polynomial $A:\R^n \rightarrow SM(\R^{mxm})$ defined by:
+$$A(x)=A_0+x_1A_1+ \dots + x_n A-n $$
+
+where $SM(\R^{mxm})$ is the set of $mxm$ symetric matrices of real numbers, and matrices $A_0,A_1,\cdots ,A_n$ are symetric as well. We can form the following linear matrix inequality $A(x)	\preceq B_m$
+whose solution set is $S:=\{x\in \R^n\hspace{0.1cm} | \hspace{0.1cm}A(x)\preceq B_m \}$. Then, this set $S$ is the one to demonstrate is convex. Let $x,y\in S$ and $\lambda\in [0,1]$. Hence:
+\begin{align*}
+    A(\lambda x +(1-\lambda)y) &\preceq B_m\\
+    A_0+(\lambda x_1 +(1-\lambda)y_1)A_1+ \dots + (\lambda x_n +(1-\lambda)y_n) A_n&\preceq B_m \\
+    A_0+\lambda x_1A_1 +(1-\lambda)yA_1+ \dots + \lambda x_n A_n +(1-\lambda)yA_n&\preceq B_m \\
+    A_0+\lambda(x_1A_1+\dots + x_n A_n) +(1-\lambda)(y_1A_1+ \dots +y_nA_n)&\preceq B_m \\
+    \lambda A(x) +(1-\lambda)A(y) &\preceq B_m
+\end{align*}
+Since $x,y\in S$ then $A(x)\preceq B_m$ and $A(y)\preceq B_m$. Since a convex combination of two positive semidefinite matrices is also positive semidefinite, we conclude that set $S$ is convex.
+
+\end{document}
+

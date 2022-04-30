@@ -1,0 +1,367 @@
+
+\documentclass[12pt, oneside]{article}%Tipo de documento y tamaño de letra%
+\usepackage[spanish]{layout}
+%\usepackage{hyperref}
+\usepackage{color,graphicx}%Para poder incertar graficas%
+\usepackage{graphics}
+\usepackage{amsmath,amssymb}%Insertar unos simbolos matematicos especiales%
+\usepackage{setspace}
+%\usepackage{empheq}
+%\usepackage{multicol}
+\onehalfspacing
+%\usepackage[mathscr]{euscript}%Tipo especial de letra%
+\usepackage[utf8]{inputenc}%Para las tildes
+\usepackage[spanish,activeacute]{babel} %Todo en Español
+%\usepackage{multicol}
+\pagestyle{empty}
+%\usepackage{spalign}  %SISTEMAS DE ECUACIONES%
+%\usepackage{array}
+\usepackage{layout}
+\usepackage{bm}
+\usepackage{manfnt}
+\usepackage{float}
+\usepackage{enumitem}
+%\usepackage{mma} 
+\usepackage{xcolor}
+\usepackage{mdframed}
+
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks=true,
+    linkcolor=red}
+\def\Car{{\textsf{Car}}}
+\def\Ring{{\mathcal R}}
+
+\def\N{{\mathbb N}}
+\def\Z{{\mathbb Z}}
+\def\R{{\mathbb R}}
+\newtheorem{teorema}{Teorema}
+\def\F{{\mathbb F}}
+\def\multiset#1#2{\ensuremath{\left(\kern-.3em\left(\genfrac{}{}{0pt}{}{#1}{#2}\right)\kern-.3em\right)}}
+\usepackage{picinpar}
+\setlength{\oddsidemargin}{0pt}
+\setlength{\topmargin}{0pt}
+\setlength{\headheight}{0pt}
+\setlength{\headsep}{0pt}
+\setlength{\textheight}{24cm}
+\setlength{\textwidth}{16.5cm}
+\setlength{\marginparsep}{0pt}
+\setlength{\marginparwidth}{0pt}
+\setlength{\footskip}{1cm}
+
+% \newenvironment{theorem}
+%   {\begin{mdframed}[backgroundcolor=lightgray]
+%   \begin{mdtheorem}}
+%   {\end{mdtheorem}
+% \end{mdframed}}
+
+
+\begin{document}
+\setlength{\parindent}{0cm}%EL ANCHO DE LA SANGRIA DE AQUÍ EN ADELANTE%
+\hoffset-0.46cm
+\voffset-1.46cm
+
+\begin{window}[0,l,{\includegraphics[scale=0.4]{Logo UN.jpg}},]
+\Large  \hspace{0.6cm}\textsf{National University of Colombia} \\
+\textcolor{white}{\tiny.}  \Large \hspace{0.6cm} \textsf{Department of Mathematics} \\
+\textcolor{white}{\tiny.}   \large\hspace{5.5cm}\textsf{Introduction to Optimization}\\
+\textcolor{white}{\tiny.}   \large \hspace{6.2cm}\textsf{Convex Sets Exercises} 
+\end{window}
+
+
+\vspace{0.5cm}
+\normalfont
+\textsf{Jorge Luis Castillo Orduz} 
+\normalsize
+\dotfill
+\vspace{1cm}
+
+
+From the guide book solve the following exercises:
+
+
+\begin{enumerate}[font=\bfseries]
+\item [2.1] Let $C\subseteq \R^n$ be a convex set, with $x_1, \dots , x_k\in C$, and let $\theta_1, \dots , \theta_k\in \R$ satisfy $\theta_i \geq 0$, $\theta_1 + \dots + \theta_k = 1$. Show that $\theta_1x_1 + \dots + \theta_kx_k\in C$. (The definition of convexity is that this holds for $k = 2$; you must show it for arbitrary $k$.) \textit{Hint}. Use induction on k.\\
+
+\Large\textsf{\textcolor{blue}{Solution}}
+\normalsize\\
+
+We will use induction on $k$ as the \textit{Hint} suggests. It is important to highlight that the definition of convex sets shows that this is true for $k=2$, so we will start our induction with the base case $k=3$.
+\begin{itemize}
+    \item \textbf{Base Case: }$k=3$\\
+    Let $C$ be a convex set and let's suppose that $x_1,x_2,x_3 \in C$. Additionally, let $\theta_1, \theta_2, \theta_3 \in \R$ be the coefficients with $\theta_1+\theta_2 + \theta_3=1$ and $\theta_1, \theta_2, \theta_3 \geq 0$. We will see that $y=\theta_1x_1+ \theta_2x_2+\theta_3x_3\in C$. We have multiple cases, one for each case where $\theta_i=1$, so the rest of the coefficients will be zero and $y=x_i$ for some $i=1,2,3$. In any of these previous cases $y\in C$ because our hypothesis holds that $x_i \in C$ for $i=1,2,3$. Now, we know that at least one of the $\theta_i\neq 1$, without loss of generality we can assume that $\theta_1\neq1$. We can write our expression like: 
+    \begin{align*}
+    y&=\theta_1x_1+ \theta_2x_2+\theta_3x_3\\
+    &=\theta_1x_1+ (1-\theta_1)\left(\frac{\theta_2x_2+\theta_3x_3}{1-\theta_1}\right)\\
+    &=\theta_1x_1+ (1-\theta_1)\left(\frac{\theta_2x_2}{1-\theta_1}+\frac{\theta_3x_3}{1-\theta_1}\right)
+    \end{align*}
+    We can rename the coefficients in order to make calculations easier.
+    $$\beta_2 = \frac{\theta_2}{1-\theta_1} \hspace{1cm} \beta_3 = \frac{\theta_3}{1-\theta_1}$$
+    So, we end up with:
+    \begin{equation}
+        y=\theta_1x_1+(1-\theta_1)(\beta_2x_2+\beta_3x_3).
+        \label{eqn:Eq1}
+    \end{equation}
+    Let's notice two important things here. As $\theta_1\neq1$ we can be sure that $\beta_2,\beta_3\geq0$. And moreover:
+    \begin{align*}
+        \beta_2 + \beta_3 &= \frac{\theta_2}{1-\theta_1} + \frac{\theta_3}{1-\theta_1}\\[0.2cm]
+        \beta_2 + \beta_3 &= \frac{\theta_2+\theta_3}{1-\theta_1}
+    \end{align*}
+    Remember that our hypothesis tells us that $\theta_1+\theta_2 + \theta_3=1$, so $\theta_2 + \theta_3=1-\theta_1$. So, replacing we will get:
+    $$\beta_2 + \beta_3 = \frac{1-\theta_1}{1-\theta_1}=1$$
+    Thus, $\beta_2,\beta_3\geq0$, $\beta_2 + \beta_3 = 1$, $x_2,x_3\in C$ and as $C$ is a convex set, then the point \bm{$\beta_2x_2+\beta_3x_3\in C$}.\\\\
+    Now, if we take a look of $y$ in the equation (\ref{eqn:Eq1}), we see:
+    \begin{itemize}
+        \item $x_1,(\beta_2x_2+\beta_3x_3)\in C$
+        \item $\theta_1, (1-\theta_1)\geq0$
+        \item $\theta_1 + (1-\theta_1)=1$
+    \end{itemize} 
+    Thus, as $C$ is a convex set,  and we have two points of $C$, due to the definition of convex set, then the point \bm{$y\in C$}.\\
+    \item \textbf{Induction Hypothesis}\\
+    Let's suppose that for an arbitrary $n\in \N$, it is true that given $x_1, \dots , x_n\in C$, $\theta_1, \dots , \theta_n\in \R$ with $\theta_i \geq 0$ and $\theta_1 + \dots + \theta_n = 1$, then we have $\theta_1x_1 + \dots + \theta_nx_n\in C$.\\
+    \item \textbf{Inductive Step}\\
+    Let's see what happens with $n+1$. Suppose that $x_1, \dots , x_{n+1}\in C$. Additionally, let $\theta_1, \dots , \theta_{n+1}\in \R$ be the coefficients with $\theta_1, \dots , \theta_{n+1} \geq 0$ and $\theta_1 + \dots + \theta_{n+1} = 1$. We will see that $y=\theta_1x_1+ \theta_2x_2+\dots+ \theta_{n+1}x_{n+1}\in C$. As we did in the Base Case, we know that at least one of the $\theta_i\neq 1$.
+    
+    \newpage
+    
+    Let's assume, without loss of generality, that $\theta_{n+1}\neq1$ and write our expression like:
+    \begin{align*}
+        y&=\theta_1x_1+ \theta_2x_2+\dots+  \theta_{n}x_{n} +\theta_{n+1}x_{n+1} \\
+        &=\theta_{n+1}x_{n+1}+(1-\theta_{n+1})\left(\frac{\theta_1x_1+ \theta_2x_2+\dots+\theta_{n}x_{n}}{1-\theta_{n+1}}\right)\\
+        &=\theta_{n+1}x_{n+1}+(1-\theta_{n+1})\left(\frac{\theta_1x_1}{1-\theta_{n+1}}+\frac{\theta_2x_2}{1-\theta_{n+1}} +\dots+\frac{\theta_n x_n}{1-\theta_{n+1}}\right)
+    \end{align*}
+    Once again, lets rename the variables:
+    $$\beta_1=\frac{\theta_1}{1-\theta_{n+1}} \hspace{1cm} \beta_2=\frac{\theta_2}{1-\theta_{n+1}} \hspace{1cm} \dots \hspace{1cm} \beta_n=\frac{\theta_n}{1-\theta_{n+1}} $$
+    Then, we will get the following expression: 
+    \begin{equation}
+        y = \theta_{n+1}x_{n+1}+(1-\theta_{n+1})\left(\beta_1x_1 + \beta_2x_2+\dots+\beta_n x_n \right)
+        \label{Eq2}
+    \end{equation}
+    We know that $\theta_{n+1}\neq1$, which allows us to be sure that each $\beta_i\geq0$. Additionally, remember that $\theta_1 + \dots + \theta_{n} + \theta_{n+1} = 1$, which means that $\theta_1 + \dots + \theta_{n} +  = 1 -\theta_{n+1}$. Now, we can sum up all the $\beta$'s:
+    \begin{align*}
+        \beta_1+\beta_2+\dots+\beta_n&=\frac{\theta_1}{1-\theta_{n+1}}+\frac{\theta_2}{1-\theta_{n+1}}+\dots+\frac{\theta_n}{1-\theta_{n+1}}\\
+        &=\frac{\theta_1+\theta_2+\dots+\theta_n}{1-\theta_{n+1}}\\
+        &=\frac{1-\theta_{n+1}}{1-\theta_{n+1}}\\
+        \beta_1+\beta_2+\dots+\beta_n&=1
+    \end{align*}
+    So, for $i=1,2,\dots,n$ we have $\beta_i\geq0$ and $\beta_1+\beta_2+\dots+\beta_n=1$. Thus, thanks to our \textbf{induction hypothesis} we can affirm that $\beta_1x_1 + \beta_2x_2+\dots+\beta_n x_n \in C$, because we have $n$ points of $C$. I'd like to mention that we can get this conclusion independently of the $\theta_i\neq1$ we assume, because the number of points will always be $n$ in the end. Now, if we take a look of $y$ in the equation (\ref{Eq2}), we see:
+    \begin{itemize}
+        \item $x_{n+1},(\beta_1x_1+\beta_2x_2+\dots+\beta_nx_n)\in C$
+        \item $\theta_{n+1}, (1-\theta_{n+1})\geq0$
+        \item $\theta_{n+1} + (1-\theta_{n+1})=1$
+    \end{itemize} 
+    Thus, as $C$ is a convex set, and we have two points of $C$, due to the definition of convex set then the point \bm{$y\in C$}.\newline
+    \hspace*{0pt}\hfill $\hfill\square$
+\end{itemize}
+
+\newpage
+
+\item [2.3] \textit{Midpoint convexity}. A set $C$ is \textit{midpoint convex} if whenever two points $a$, $b$ are in $C$, the average or midpoint $(a + b)/2$ is in $C$. Obviously a convex set is midpoint convex. It can be proved that under mild conditions midpoint convexity implies convexity. As a simple case, prove that if $C$ is closed and midpoint convex, then $C$ is convex.\\
+
+\Large\textsf{\textcolor{blue}{Solution}}
+\normalsize\\
+
+Let $C$ be a closed and midpoint convex set. We will show that for all $\theta\in [0,1]$ and for all $x,y \in C $, $\theta x + (1-\theta)y \in C$. Now, let's define $\theta^{(k)}$ as the binary representation of length k of a decimal number, this number will be of the form: 
+$$\theta^{(k)}=c_1 2^{-1}+c_2 2^{-2}+\dots + c_k 2^{-k}$$
+the coefficients $c_i\in \{0,1\}$, $k\in\N$ and $\theta^{(k)}$ will be the closest number of this form to $\theta$. It is important to highlight that $0\leq\theta^{(k)}\leq1$, and now we can replace this representation and get:
+\begin{align*}
+    z &= \theta x + (1-\theta)y\\
+    z^{(k)} &= \theta^{(k)} x + (1-\theta^{(k)})y\\
+    z^{(k)} &= (c_1 2^{-1}+c_2 2^{-2}+\dots + c_k 2^{-k}) x + (1-(c_1 2^{-1}+c_2 2^{-2}+\dots + c_k 2^{-k}))y\\
+    z^{(k)} &= \left(\frac{c_12^{(k-1)}+c_2 2^{(k-2)}+\dots + c_k}{2^k}\right) x + \left(1-\left(\frac{c_12^{(k-1)}+c_2 2^{(k-2)}+\dots + c_k}{2^k}\right)\right)y\\
+    z^{(k)} &= \left(\frac{c_12^{(k-1)}+c_2 2^{(k-2)}+\dots + c_k}{2^k}\right) x + \left(\frac{2^k-c_12^{(k-1)}-c_2 2^{(k-2)}-\dots - c_k}{2^k}\right)y
+\end{align*}
+We can conclude several things from this new point of view. First:
+$$\left(\frac{c_12^{(k-1)}+c_2 2^{(k-2)}+\dots + c_k}{2^k}\right) + \left(\frac{2^k-c_12^{(k-1)}-c_2 2^{(k-2)}-\dots - c_k}{2^k}\right)=\frac{2^k}{2^k}=1$$
+Second:
+$$\left(\frac{c_12^{(k-1)}+c_2 2^{(k-2)}+\dots + c_k}{2^k}\right)\geq0 \hspace{1cm} \left(\frac{2^k-c_12^{(k-1)}-c_2 2^{(k-2)}-\dots - c_k}{2^k}\right)\geq0$$
+And last but not least, we can see this expression as the midpoint convexity applied recursively $k$ times:
+$$(c_12^{(k-1)}+c_2 2^{(k-2)}+\dots + c_k)\frac{x}{2^k} + (2^k-c_12^{(k-1)}-c_2 2^{(k-2)}-\dots - c_k)\frac{y}{2^k}$$
+Thus, as $C$ is a midpoint convex set, then $z^{(k)} = \theta^{(k)} x + (1-\theta^{(k)})y \in C$. Now we will use the fact that $C$ is closed, by making $k$ tend to infinity, which means:
+$$ \lim_{k \to \infty} \theta^{(k)} x + (1-\theta^{(k)})y = \theta x + (1-\theta)y $$
+We can state this because $C$ is closed and moreover, we can see this process as applying midpoint convexity infinite times. Finally, we can affirm that $z=\theta x + (1-\theta)y\in C$. Thus, $C$ is convex.\newline
+    \hspace*{0pt}\hfill $\hfill\square$
+
+\item [2.4] Show that the convex hull of a set $S$ is the intersection of all convex sets that contain $S$. (The same method can be used to show that the conic, or affine, or linear hull of a set $S$ is the intersection of all conic sets, or affine sets, or subspaces that contain $S$.)\\
+
+\Large\textsf{\textcolor{blue}{Solution}}
+\normalsize\\
+
+Let $S$ be a set and $C$ its convex hull. Now, let $D$ be the intersection of all convex sets that contains $S$:
+$$D=\bigcap\{E\hspace{0.1cm}|\hspace{0.1cm}E \text{ is convex and }S\subseteq E\} $$
+We will show that $C=D$ using the axiom of extension. 
+\begin{itemize}
+    \item $C\subseteq D$\\
+    Let \bm{$x\in C$} be an arbitrary element of the convex hull of $S$, which means that $x$ is a convex combination of some points $x_1, \dots,x_n\in S$. Now, let $E$ be any convex set that belongs to $D$. As $E\in D$, then $S\subseteq E$, which means that $x_1, \dots,x_n\in E$. Let's remember that $E$ is convex by definition as well, meaning that any convex combination of $x_1, \dots,x_n$ belongs to $E$, so we can affirm that $x\in E$. As we can say the same for any convex set $E$ that contains $S$, then $x$ is in the intersection of all sets $E$ and \bm{$x\in D$}.
+    \item $D\subseteq C$\\
+    Since $C$ is convex by definition and $S\subseteq C$, then we must have that $C=E$ for some E of the construction of $D$. Additionally, the convex hull $C$ is the smallest convex set that contains $S$, which means that the intersection of all convex sets will be contained in $C$.
+\end{itemize}
+ Thus, we conclude that $C=D$\newline
+    \hspace*{0pt}\hfill $\hfill\square$
+\newpage
+
+\item [2.5] What is the distance between two parallel hyperplanes $\{x \in \R^n \hspace{0.1cm} |\hspace{0.1cm} a^T x = b_1\}$ and $\{x \in \R^n \hspace{0.1cm}|\hspace{0.1cm} a^T x = b_2\}$?\\
+
+\Large\textsf{\textcolor{blue}{Solution}}
+\normalsize\\
+
+Let's name our hyperplanes:
+$$H_1=\{x \in \R^n \hspace{0.1cm} |\hspace{0.1cm} a^T x = b_1\} \hspace{2cm} H_2=\{x \in \R^n \hspace{0.1cm} |\hspace{0.1cm} a^T x = b_2\}$$
+From the curse of Linear Algebra we know that the distance between two parallel hyperplanes is given by:
+$$d(H_1,H_2)=\frac{|b_1-b_2|}{\|a\|}$$
+where $\|a\|$ is the Euclidean norm $\|a\|_2$.\\
+
+\item [2.8] Which of the following sets $S$ are polyhedra? If possible, express $S$ in the form $S = \{x \hspace{0.1cm}|\hspace{0.1cm} Ax \preceq b, \hspace{0.1cm} Fx = g\}$.\\
+
+\Large\textsf{\textcolor{blue}{Solution}}
+\normalsize
+\begin{enumerate}
+\item $S = \{y_1 a_1 + y_2 a_2 \hspace{0.1cm} | \hspace{0.1cm} -1 \leq y_1 \leq 1, \hspace{0.1cm} -1 \leq y_2 \leq 1\}$, where $a_1, a_2 \in \R^n.$\\
+
+The definition of polyhedron states that it is the intersection of a finite number of halfspaces and hyperplanes. We can see this set as the intersection of 3 sets:
+
+\begin{itemize}
+    \item $S_1$: the plane defined by $a_1$ and $a_2$
+    \item $S_2=\{ z+y_1a_1+y_2a_2 \hspace{0.1cm} | \hspace{0.1cm} a_1^T z = a_2^T = 0, \hspace{0.1cm} -1 \leq y_1 \leq 1 \}$
+    \item $S_3=\{ z+y_1a_1+y_2a_2 \hspace{0.1cm} | \hspace{0.1cm} a_1^T z = a_2^T = 0, \hspace{0.1cm} -1 \leq y_2 \leq 1 \}$
+\end{itemize}
+Thus, the set is a polyhedron.\\
+
+\item $S = \{x \in \R^n \hspace{0.2cm} | \hspace{0.2cm} x \succeq 0, \hspace{0.2cm} 1^T x = 1, \hspace{0.2cm} \sum_{i=1}^n x_i a_i = b_1,\hspace{0.2cm} \sum_{i=1}^n x_i a^2_i= b_2\}$, where $a_1,\dots, a_n \in \R$ and $b_1, b_2 \in \R$.\\
+
+We can clearly see that $x \succeq 0$ is a halfspace. Additionally $1^T x = 1$, $\sum_{i=1}^n x_i a_i = b_1$ and $\sum_{i=1}^n x_i a^2_i= b_2$ are hyperplanes. Thus, this set is a polyhedron as well.
+\newpage
+\item $S = \{x \in \R^n \hspace{0.1cm}| \hspace{0.1cm} x \succeq 0, \hspace{0.1cm} x^T y \leq 1$ for all $y$ with $ \|y\|_2 = 1\}.$\\
+
+First, let's take a look of $x^T y \leq 1$ and $ \|y\|_2 = 1.$ We know from the Cauchy-Schwarz inequality:
+\begin{align*}
+    |x \hspace{0.1cm} y | &\leq \|x\|\|y\|\\
+    |x \hspace{0.1cm} y | &\leq \|x\|
+\end{align*}
+But this is constrained by $x^T y \leq 1$, which implies that $\|x\| \leq 1$ and this is a euclidean ball. We intersect this ball with the nonnegative orthant $\R^n_+$. We will end up with the section of a ball, but to represent that section we need infinite number of intersected hyperplanes. However, our definition is limited to finite number of halfspaces and hyperplanes. Thus, this is not a polyhedron.\\
+
+\item $S = \{x \in \R^n \hspace{0.1cm}| \hspace{0.1cm} x \succeq 0, \hspace{0.1cm} x^T y \leq 1$ for all $y$ with $ \sum_{i=1}^n |y_i| = 1\}.$\\
+
+Once again, we are intersecting the nonnegative orthant $\R^n_+$ with other sets, but this time the constraint will be given by $max_i \hspace{0.1cm} |x_i| \leq 1$, which means we are working with the norm $\| x \|_\infty$. Thus, the ball resulting from this norm has the shape of a square, i.e. the ball can be expressed as the intersection of a finite amount of halfspaces and thus, the set S will be a polyhedron.
+\end{enumerate}
+
+\item [2.9] \textit{Voronoi sets and polyhedral decomposition}. Let $x_0, \dots, x_K \in \R^n$. Consider the set of points that are closer (in Euclidean norm) to $x_0$ than the other $x_i$, $i.e.$,
+$$V = \{x \in \R^n \hspace{0.1cm} |\hspace{0.1cm} \|x - x_0\|_2 \leq \|x - xi\|_2, \hspace{0.1cm}i = 1, \dots ,K\}.$$
+V is called the \textit{Voronoi region} around $x_0$ with respect to $x_1, \dots, x_K$.\\
+
+\Large\textsf{\textcolor{blue}{Solution}}
+\normalsize
+
+\begin{enumerate}
+    \item Show that $V$ is a polyhedron. Express $V$ in the form $V = {x\hspace{0.1cm} | \hspace{0.1cm} Ax \preceq  b}$.\\
+    
+    Let's start with the definition. We know that $x$ is the closest point to $x_0$, if for all $i=1,\dots k$  
+    \begin{align*}
+        \|x-x_0 \|_2 &\leq \|x-x_i\|\\
+        \sqrt{(x_1-x_{0_1})^2+(x_2-x_{0_2})^2 \dots (x_n-x_{0_n})^2}&\leq\sqrt{(x_1-x_{i_1})^2+(x_2-x_{i_2})^2 \dots (x_n-x_{i_n})^2}\\
+        (x_1-x_{0_1})^2+(x_2-x_{0_2})^2 \dots (x_n-x_{0_n})^2&\leq(x_1-x_{i_1})^2+(x_2-x_{i_2})^2 \dots (x_n-x_{i_n})^2
+    \end{align*}
+    We can do this because the terms $(x_n-x_{i_n})^2$ are always positive due to the square. Now, notice that the resulting expression can be rewritten as:
+    \begin{align*}
+        (x-x_0)^T(x-x_0)&\leq(x-x_i)^T(x-x_i)\\
+        x^Tx - 2 x_0^T x + x_0^T x_0&\leq x^Tx - 2 x_i^T x + x_i^T x_i\\
+        2(x_i-x_0)^T x &\leq x_i^T x_i - x_0^T x_0
+    \end{align*}
+    If we name $A=2(x_i-x_0)^T$ and $b=x_i^T x_i - x_0^T x_0$ then we can express $V$ as $V=\{x\hspace{0.1cm}|\hspace{0.1cm} Ax \preceq b\}$, which defines a halfspace. Thus, $V$ is a polyhedron.
+    
+    \item Conversely, given a polyhedron $P$ with nonempty interior, show how to find $x_0, \dots, x_K$ so that the polyhedron is the Voronoi region of $x_0$ with respect to $x_1,\dots, x_K$.\\
+    
+    Let $V=\{x\hspace{0.1cm}|\hspace{0.1cm} Ax \preceq b\}$ be a polyhedron with nonempty interior, with $A\in \R ^{K \times n}$ and $b\in \R ^K$. We can pick any point from this set and name it as $x_0$, and after that, we can construct $K$ points $x_i$. As this $x_0 \in \{x\hspace{0.1cm}|\hspace{0.1cm} Ax \preceq b\}$, then the rest of the points can be represented as $x_i=x_0+\lambda a_i$, where $\lambda$ is chosen in such a way that the distance of $x_i$ to the hyperplane defined by $a_i^T x = b_i$ is equal to the distance of $x_0$ to the hyperplane:
+    \begin{align*}
+        b_i-a_i^T x_0 &= a_i^T x_i - b_i\\
+        b_i-a_i^T x_0 &= a_i^T (x_0+\lambda a_i) - b_i\\
+        b_i-a_i^T x_0 &= a_i^T x_0+ a_i^T\lambda a_i - b_i\\
+        2b_i-2a_i^T x_0 &= a_i^T\lambda a_i\\
+        \frac{2(b_i-a_i^T x_0)}{a_i^T a_i} &= \lambda\\
+        \frac{2(b_i-a_i^T x_0)}{\|a_i\|^2} &= \lambda
+    \end{align*}
+    Thus, we can represent the $x_i$ points as:
+    $$ x_i = x_0 + \frac{2(b_i-a_i^T x_0)}{\|a_i\|^2} a_i $$
+    \item We can also consider the sets
+    $$V_k = \{x \in \R^n\hspace{0.1cm} |\hspace{0.1cm} \|x-x_k\|_2 \leq \|x-x_i\|_2,\hspace{0.1cm} i \neq k\}.$$
+    The set $V_k$ consists of points in $\R^n$ for which the closest point in the set $\{x_0,\dots, x_K\}$ is $x_k$.\\
+    
+    The sets $V_0,\dots, V_K$ give a polyhedral decomposition of $\R^n$. More precisely, the sets $V_k$ are polyhedra, $\bigcup_{k=0}^K V_k = \R^n$, and \textbf{int} $V_i$ $\cap $ \textbf{int} $V_j = \emptyset$ for $i \neq j$, \textit{i.e.}, $V_i$ and $V_j$ intersect at most along a boundary. \\
+    Suppose that $P_1,\dots, P_m$ are polyhedra such that $\bigcup^m_{i=1} P_i = \R^n$, and \textbf{int} $P_i$ $\cap $ \textbf{int} $P_j = \emptyset$ for $i \neq j$. Can this polyhedral decomposition of $\R^n$ be described as the Voronoi regions generated by an appropriate set of points?\\
+    
+    asd
+\end{enumerate}
+
+\vspace{5cm}
+
+
+\item [2.10] \textit{Solution set of a quadratic inequality}. Let $C \subseteq \R^n$ be the solution set of a quadratic inequality, $$C = \{x \in  \R^n \hspace{0.1cm} |\hspace{0.1cm} x^TAx + b^Tx + c \leq 0\},$$  with $A \in S^n$, $b \in \R^n$, and $c \in \R$.
+\begin{enumerate}
+    \item Show that C is convex if $A 	\succeq 0 $.
+    \item Show that the intersection of $C$ and the hyperplane defined by $g^T x + h = 0$ (where $g \neq 0$) is convex if $A + \lambda gg^T \succeq 0$ for some $\lambda \in \R$.
+\end{enumerate}
+
+\vspace{5cm}
+
+\item [2.13] \textit{Conic hull of outer products}. Consider the set of rank-\textit{k outer products}, defined as $\{XX^T \hspace{0.1cm}| \hspace{0.1cm} X \in \R^{n\times k}, $ rank $ X = k\}$. Describe its conic hull in simple terms.
+
+\vspace{5cm}
+
+\item [2.14] \textit{Expanded and restricted sets}. Let $S \subseteq \R^n$, and let $\|$ . $ \| $ be a norm on $\R^n$.
+\begin{enumerate}
+    \item For $a \geq 0$ we define $S_a$ as $\{x \hspace{0.1cm} | $\textbf{ dist}$(x,S) \leq a\}$, where \textbf{dist}$(x,S) =$ inf$_{y\in S} \| x-y \| $. We refer to $S_a$ as $S$ \textit{expanded} or \textit{extended} by $a$. Show that if $S$ is convex, then $S_a$ is convex.
+    \item For $a \geq 0$ we define $S_{-a} = \{x\hspace{0.1cm} |\hspace{0.1cm} B(x, a) \subseteq S\}$, where $B(x, a)$ is the ball (in the norm $\|$ . $ \| $), centered at $x$, with radius $a$. We refer to $S_{-a}$ as $S$ \textit{shrunk} or \textit{restricted} by $a$, since $S_{-a}$ consists of all points that are at least a distance $a$ from $ \R^n\setminus S$. Show that if $S$ is convex, then $S_{-a}$ is convex.
+\end{enumerate}
+
+\vspace{5cm}
+
+\item [2.15] \textit{Some sets of probability distributions}. Let $x$ be a real-valued random variable with \textbf{prob}$(x = a_i) = p_i$, $i = 1,\dots , n$, where $a_1 < a_2 < \dots < a_n$. Of course $p \in \R^n$ lies in the standard probability simplex $P = \{p \hspace{0.1cm}| \hspace{0.1cm} 1^T p = 1, \hspace{0.1cm} p \succeq 0\}$. Which of the following conditions are convex in $p$? (That is, for which of the following conditions is the set of $p \in P$ that satisfy the condition convex?)
+\begin{enumerate}
+    \item $\alpha \leq Ef(x) \leq \beta$, where \textbf{E}$f(x)$ is the expected value $P$ of $f(x)$, i.e., \textbf{E}$f(x) = \sum_{i=1}^n p_i f(a_i)$. (The function $f : \R \rightarrow \R$ is given.)
+    \item \textbf{prob}$(x > \alpha) \leq \beta$.
+    \item \textbf{E}$|x^3| \leq \alpha $ \textbf{E} $|x|$.
+    \item \textbf{E}$x^2 \leq \alpha$.
+    \item \textbf{E}$x^2 \geq \alpha$.
+    \item \textbf{var}$(x) \leq \alpha$, where \textbf{var}$(x) = $\textbf{E}$(x-$\textbf{E}$x)^2$ is the variance of $x$.
+    \item \textbf{var}$(x) \geq \alpha$
+    \item \textbf{quartile}$(x)\geq \alpha$, where \textbf{quartile}$(x) = $\textbf{ inf}$\{\beta \hspace{0.1cm} | \hspace{0.1cm}$prob$(x \leq \beta) \geq 0.25\}$.
+    \item \textbf{quartile}$(x) \leq \alpha$
+\end{enumerate}
+
+\vspace{5cm}
+
+\item [2.16] Show that if $S_1$ and $S_2$ are convex sets in $\R^{m+n}$, then so is their partial sum
+$$S = \{(x, y_1 + y_2) \hspace{0.1cm} | \hspace{0.1cm} x \in \R^m, \hspace{0.1cm} y_1, y_2 \in \R^n, \hspace{0.1cm}(x, y_1) \in S_1, \hspace{0.1cm}(x, y_2) \in S_2\}.$$
+
+\vspace{5cm}
+
+\item [2.17] \textit{Image of polyhedral sets under perspective function}. In this problem we study the image of hyperplanes, halfspaces, and polyhedra under the perspective function $P(x, t) = x/t$, with \textbf{dom} $P = \R^n \times \R_{++}$. For each of the following sets $C$, give a simple description of
+$$P(C) = \{v/t \hspace{0.1cm} | \hspace{0.1cm} (v, t) \in C, \hspace{0.1cm} t > 0\}.$$
+\begin{enumerate}
+    \item The polyhedron $C =$ \textbf{conv} $\{(v_1, t_1), \dots , (v_K, t_K)\}$ where $v_i \in \R^n$ and $t_i > 0$.
+    \item The hyperplane $C = \{(v, t)\hspace{0.1cm} |\hspace{0.1cm} f^T v + gt = h\}$ (with $f$ and $g$ not both zero).
+    \item The halfspace $C = \{(v, t) \hspace{0.1cm} | \hspace{0.1cm} f^T v + gt \leq h\}$ (with $f$ and $g$ not both zero).
+    \item The polyhedron $C = \{(v, t) \hspace{0.1cm}|\hspace{0.1cm} Fv + gt \preceq h\}$.
+\end{enumerate}
+
+\vspace{5cm}
+
+\item [2.18] \textit{Invertible linear-fractional functions}. Let $f : \R^n \rightarrow \R^n$ be the linear-fractional function
+$$f(x) = (Ax + b)/(c^T x + d), \hspace{2cm}domf = \{x \hspace{0.1cm}| \hspace{0.1cm} c^T x + d > 0\}.$$
+Suppose the matrix
+
+$$ Q =  \begin{bmatrix}
+A & b \\
+c^T & d
+\end{bmatrix} $$
+
+is nonsingular. Show that $f$ is invertible and that $f^{-1}$ is a linear-fractional mapping. Give an explicit expression for $f^{-1}$ and its domain in terms of $A, b, c,$ and $d$. \textit{Hint}. It may be easier to express $f^{-1}$ in terms of $Q$. 
+
+\vspace{10cm}
+
+
+
+\end{enumerate}
+
+\end{document}
+
